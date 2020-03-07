@@ -1,18 +1,18 @@
 const router = require('express').Router();
-const User = require('../models/user.model');
+let User = require('../models/user.model');
 
 router.route('/').get((req, res) => {
-    User.find()                     // mongoose method to get a list from MongoDB Atlas
-    .then(users => res.json(users)) // return in json format users from database
-    .catch(err => res.status(400).json('Error ' + err)); // if error
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => { 
-    const username = req.body.username;
+router.route('/add').post((req, res) => {
+  const username = req.body.username;
 
-    const newUser = new User({username});
+  const newUser = new User({username});
 
-    newUser.save()  // method to save in database
+  newUser.save()
     .then(() => res.json('User added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });

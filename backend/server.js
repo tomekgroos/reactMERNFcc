@@ -5,27 +5,25 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
+const port = process.env.PORT || 4000;
+
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
-
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
-
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
+);
 const connection = mongoose.connection;
-connection.once('open', () =>{
-    console.log("MongoDB database connection established with success");
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully");
 })
 
-const exercisesRouter = require('./routes/exercises')
-const usersRouter = require('./routes/users')
+const exercisesRouter = require('./routes/exercises');
+const usersRouter = require('./routes/users');
 
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 
-app.listen(PORT, () =>{
-    console.log(`Server starts running on port: ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`);
 });
-
-//https://youtu.be/7CqJlxBYj-M?t=1505
