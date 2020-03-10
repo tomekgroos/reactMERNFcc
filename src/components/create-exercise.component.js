@@ -101,7 +101,7 @@ class CreateExercises extends Component {
                             return <option
                             key={user}
                             value={user}>
-                            {user}>
+                            {user}
                             </option>;
                         }) 
                     }

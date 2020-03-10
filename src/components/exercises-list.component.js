@@ -2,18 +2,18 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-const Exercise = props => {
+const Exercise = props => (
     <tr>
         <td>{props.exercise.username}</td>
         <td>{props.exercise.description}</td>
         <td>{props.exercise.duration}</td>
         <td>{props.exercise.date.substring(0,10)}</td>
         <td>
-            <Link to={"/edit" + props.exercise._id}>edit</Link>
-            | <a href='#' onClick={() => {props.deleteExercise(props.exercise._id)}}>delete</a>
+            <Link to={"/edit/" + props.exercise._id}>edit </Link>
+             | <a href="#" onClick={() => {props.deleteExercise(props.exercise._id)}}>delete</a>
         </td>
     </tr>
-} // do poprawy?
+) 
 
 class ExercisesList extends Component {
     constructor(props){
@@ -25,9 +25,9 @@ class ExercisesList extends Component {
     }  
 
         componentDidMount() {
-            axios.get('http://localhost:4000/exercises')
+            axios.get('http://localhost:4000/exercises/')
             .then(response => {
-                this.setState((exercises: response.data))
+                this.setState({exercises: response.data})
             })
             .catch((error) => {
                 console.log(error);
@@ -36,20 +36,20 @@ class ExercisesList extends Component {
         }
 
         deleteExercise(id){
-            axios.delete('http://localhost:4000/exercises' + id)
+            axios.delete('http://localhost:4000/exercises/'+ id)
             .then(res => console.log(res.data));
             this.setState({
                 exercises: this.state.exercises.filter(el => el._id !== id)
             })
         }
-
+            // funkcja z komponentem i propsami
         exerciseList() {
             return this.state.exercises.map(currentexercise =>{
                 return <Exercise exercise={currentexercise} 
                 deleteExercise={this.deleteExercise}
-                key={currentexercise._id}/>
+                key={currentexercise._id}/>;
             })
-        }
+        } 
 
     render() {
         return (
@@ -75,3 +75,4 @@ class ExercisesList extends Component {
 }
 
 export default ExercisesList;
+

@@ -6,7 +6,7 @@ class CreateUsers extends Component {
         super(props)
 
         this.state={
-            username: '',
+            username: ''
         }
         
         this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -28,7 +28,7 @@ class CreateUsers extends Component {
         }
             console.log(user);
 
-            axios.post('http://localhost:4000/users/add', user)
+            axios.post('http://localhost:4000/users/add/', user)
             .then(res => console.log(res.data));    
 
             this.setState({
@@ -48,8 +48,7 @@ class CreateUsers extends Component {
                         required
                         className="form-control"
                         value={this.state.username}
-                        onChange={this.onChangeUsername}
-                        />
+                        onChange={this.onChangeUsername}/>
                     </div>
                     <div className="form-group">
                         <input type="submit" 
